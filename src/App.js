@@ -3,7 +3,7 @@ import { generateUniqueRandomInt } from './util.js';
 import Banner from './Banner.js'
 import AudioPlayer from './AudioPlayer.js'
 import QuestionBox from './QuestionBox.js'
-import './App.css';
+import './styles/App.css';
 
 function App() {
 
@@ -22,24 +22,26 @@ function App() {
   return (
     <div className="App">
       <Banner/>
-	    <AudioPlayer
-        playerId="1"
-        songId={id1}
-      />
-	    <AudioPlayer
-        playerId="2"
-        songId={id2}
-      />
-      <QuestionBox
-        {...{
-          emotion,
-          setEmotion,
-          id1,
-          id2,
-          setId1,
-          setId2,
-        }}
+      <div id="main-content">
+        <AudioPlayer
+          playerId="1"
+          songId={id1}
         />
+        <AudioPlayer
+          playerId="2"
+          songId={id2}
+        />
+        <QuestionBox
+          {...{
+            emotion,
+            setEmotion,
+            id1,
+            id2,
+            setId1,
+            setId2,
+          }}
+          />
+      </div>
     </div>
   );
 }

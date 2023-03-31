@@ -1,0 +1,9 @@
+#main-content {
+    height: 80vh;
+    max-width: 100vw;
+    background-color: #4287f5;
+    text-align: center;
+    color: white;
+    margin: auto;
+    padding: 33px;
+  }

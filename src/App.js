@@ -1,23 +1,45 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import { generateUniqueRandomInt } from './util.js';
+import Banner from './Banner.js'
+import AudioPlayer from './AudioPlayer.js'
+import QuestionBox from './QuestionBox.js'
 import './App.css';
 
 function App() {
+
+  // **********************************************************************
+  // STATE VARIABLES
+  // **********************************************************************
+
+  const [emotion, setEmotion] = useState(0)
+  const [id1, setId1] = useState(generateUniqueRandomInt(0))
+  const [id2, setId2] = useState(generateUniqueRandomInt(id1))
+
+  // **********************************************************************
+  // PAGE RENDERING
+  // **********************************************************************
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Banner/>
+	    <AudioPlayer
+        playerId="1"
+        songId={id1}
+      />
+	    <AudioPlayer
+        playerId="2"
+        songId={id2}
+      />
+      <QuestionBox
+        {...{
+          emotion,
+          setEmotion,
+          id1,
+          id2,
+          setId1,
+          setId2,
+        }}
+        />
     </div>
   );
 }

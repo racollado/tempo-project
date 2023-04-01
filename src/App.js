@@ -3,7 +3,6 @@ import { generateUniqueRandomInt } from './util.js';
 import Banner from './Banner.js'
 import AudioPlayer from './AudioPlayer.js'
 import QuestionBox from './QuestionBox.js'
-import './styles/App.css';
 
 function App() {
 

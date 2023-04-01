@@ -1,6 +1,5 @@
 import { updateScores } from './dynamodb.js';
 import { generateUniqueRandomInt } from './util.js';
-import './styles/QuestionBox.css';
 
 export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setId2}) {
     

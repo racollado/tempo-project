@@ -8,8 +8,8 @@ import { DynamoDBDocumentClient, GetCommand, UpdateCommand } from "@aws-sdk/lib-
 const ddbClient = new DynamoDBClient({ 
     region: "us-east-1",
     credentials: {
-        accessKeyId: "AKIAUP5Y7WATLS4FCSP7",
-        secretAccessKey: "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",
+        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
     }});
 
 const marshallOptions = {
@@ -34,14 +34,16 @@ const tableName = 'tempoprojectsongs'
 export const updateScores = async (id, emotion, won) => {
     
     const scoreType = emotion + "_score";
+    const matchType = emotion + "_matchups";
     const incr = won ? 1 : 0;
 
     var songItem = await getData(id);
 
     const matchups = songItem['matchups'] === undefined ? 0 : songItem['matchups'];
+    const emotionMatchups = songItem[matchType] === undefined ? 0 : songItem[matchType]
     const score = songItem[scoreType] === undefined ? 0 : songItem[scoreType];
 
-    await updateData(id, scoreType, matchups, score, incr);
+    await updateData(id, matchups, emotionMatchups, matchType, score, scoreType, incr);
 }
 
 export const getCount = async () => {
@@ -73,20 +75,23 @@ const getData = async (id) => {
 // helper function (update)
 // **********************************************************************
 
-const updateData = async (id, scoreType, matchups, score, incr) => {
+const updateData = async (id, matchups, emotionMatchups, 
+                          matchType, score, scoreType, incr) => {
     await ddbClient.send(
         new UpdateCommand({
             TableName: tableName,
             Key: {
                 "id": parseInt(id)
             },
-            UpdateExpression: "set matchups = :x, #score = :y",
+            UpdateExpression: "set matchups = :x, #score = :y, #emotion_matchups = :z",
             ExpressionAttributeNames: {
-                "#score": scoreType
+                "#score": scoreType,
+                "#emotion_matchups": matchType
             },
             ExpressionAttributeValues: {
                 ":x": matchups + 1,
-                ":y": score + incr
+                ":y": score + incr,
+                ":z": emotionMatchups + 1
             },
             ReturnValues: "ALL_NEW",
         })

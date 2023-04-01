@@ -1,7 +1,7 @@
 export default function AudioPlayer({songId, playerId}) {
     return (
         <div>
-        <h2 className="text-green-600">
+        <h2 className="text-midnight">
             {`Song ${playerId}`}
         </h2>
             <audio id="audio1" controls controlsList="nodownload" 

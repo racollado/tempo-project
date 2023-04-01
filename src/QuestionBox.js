@@ -8,6 +8,7 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     // **********************************************************************
 
     const emotions = ['happy', 'angry', 'chill'];
+    const colors = ['text-green-600', 'text-red-600', 'text-blue-500'];
 
     // **********************************************************************
     // OUTCOME FUNCTIONS
@@ -26,8 +27,8 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     }
 
     async function neither() {
-        await updateScores(id1, emotions[emotion], false);
-        await updateScores(id2, emotions[emotion], false);
+        // await updateScores(id1, emotions[emotion], false);
+        // await updateScores(id2, emotions[emotion], false);
         updateQuestion();
     }
 
@@ -46,9 +47,15 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
 
     return (
         <div id="question-box">
-            <h2>{`Which song is more ${emotions[emotion]}?`}</h2>
+            <p>
+                Which song is more <span className={`font-bold ${colors[emotion]}`}>
+                    {`${emotions[emotion]}?`}
+                </span>
+            </p>
             <button onClick={song1win}>{`Song 1 (${id1})`}</button>
+            <br/>
             <button onClick={neither}>Neither/Equal</button>
+            <br/>
 	        <button onClick={song2win}>{`Song 2 (${id2})`}</button>
         </div>
     );

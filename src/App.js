@@ -22,14 +22,16 @@ function App() {
     <div className="App">
       <Banner/>
       <div id="main-content">
-        <AudioPlayer
-          playerId="1"
-          songId={id1}
-        />
-        <AudioPlayer
-          playerId="2"
-          songId={id2}
-        />
+        <div id="players" class="md:flex md:justify-center md:space-x-20 md:m-6">
+          <AudioPlayer
+            playerId="1"
+            songId={id1}
+          />
+          <AudioPlayer
+            playerId="2"
+            songId={id2}
+          />
+        </div>
         <QuestionBox
           {...{
             emotion,

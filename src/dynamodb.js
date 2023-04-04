@@ -31,11 +31,10 @@ const tableName = 'tempoprojectsongs'
 // MAIN FUNCTIONS
 // **********************************************************************
 
-export const updateScores = async (id, emotion, won) => {
+export const updateScores = async (id, emotion, incr) => {
     
     const scoreType = emotion + "_score";
     const matchType = emotion + "_matchups";
-    const incr = won ? 1 : 0;
 
     var songItem = await getData(id);
 

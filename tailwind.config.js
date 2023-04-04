@@ -6,19 +6,26 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    screens: {
+      sm: '480px',
+      md: '768px',
+      lg: '976px',
+      xl: '1440px',
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
       black: colors.black,
       red: colors.red,
       green: colors.green,
-      white: colors.white,
+      white: "#F8F8F8",
       gray: colors.gray,
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
       blue: colors.blue,
-      offblack: "#222222"
+      offblack: "#222222",
+      orange: "#FF8A00"
     },
     extend: {},
   },

@@ -13,6 +13,7 @@ function App() {
   // **********************************************************************
 
   const [emotion, setEmotion] = useState(0);
+  const [player, setPlayer] = useState(0);
   const [id1, setId1] = useState(generateUniqueRandomInt(0));
   const [id2, setId2] = useState(generateUniqueRandomInt(id1));
   const [cookies, setCookie] = useCookies([]);
@@ -31,11 +32,11 @@ function App() {
       <div id="main-content" className="mt-6 mx-3">
       <OverlayWindow {...{windowOpen, windowInfo, setWindowOpen, setCookie, accepted, setAccepted}} />
         <div id="players" className="md:flex md:justify-center md:space-x-20">
-          <AudioPlayer playerId="1" songId={id1} bounce={bounce} />
-          <AudioPlayer playerId="2" songId={id2} bounce={bounce} />
+          <AudioPlayer player={player} songId={id1} bounce={bounce} />
+          <AudioPlayer player={player - 1} songId={id2} bounce={bounce} />
         </div>
         <QuestionBox
-          {...{emotion, setEmotion, id1, id2, setId1, setId2, setBounce}}
+          {...{emotion, setEmotion, id1, id2, setId1, setId2, setBounce, player, setPlayer}}
           />
         </div>
     </div>

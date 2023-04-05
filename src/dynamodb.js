@@ -31,18 +31,35 @@ const tableName = 'tempoprojectsongs'
 // MAIN FUNCTIONS
 // **********************************************************************
 
-export const updateScores = async (id, emotion, incr) => {
+export const updateWins = async (id, emotion, incr) => {
     
-    const scoreType = emotion + "_score";
+    const winType = emotion + "_wins";
     const matchType = emotion + "_matchups";
 
     var songItem = await getData(id);
 
-    const matchups = songItem['matchups'] === undefined ? 0 : songItem['matchups'];
     const emotionMatchups = songItem[matchType] === undefined ? 0 : songItem[matchType]
-    const score = songItem[scoreType] === undefined ? 0 : songItem[scoreType];
+    const wins = songItem[winType] === undefined ? 0 : songItem[winType];
 
-    await updateData(id, matchups, emotionMatchups, matchType, score, scoreType, incr);
+    await updateWinData(id, emotionMatchups, matchType, wins, winType, incr);
+}
+
+export const updateSkips = async (id1, id2, emotion) => {
+
+    const skipType = emotion + "_skips";
+    const matchType = emotion + "_matchups";
+
+    var songItem1 = await getData(id1);
+    var songItem2 = await getData(id2)
+
+    const emotionMatchups1 = songItem1[matchType] === undefined ? 0 : songItem1[matchType]
+    const emotionMatchups2 = songItem2[matchType] === undefined ? 0 : songItem2[matchType]
+    const skips1 = songItem1[skipType] === undefined ? 0 : songItem1[skipType];
+    const skips2 = songItem2[skipType] === undefined ? 0 : songItem2[skipType];
+
+    await updateSkipData(id1, emotionMatchups1, matchType, skips1, skipType);
+    await updateSkipData(id2, emotionMatchups2, matchType, skips2, skipType);
+
 }
 
 export const getCount = async () => {
@@ -71,26 +88,47 @@ const getData = async (id) => {
 };
 
 // **********************************************************************
-// helper function (update)
+// helper functions (updates)
 // **********************************************************************
 
-const updateData = async (id, matchups, emotionMatchups, 
-                          matchType, score, scoreType, incr) => {
+const updateWinData = async (id, emotionMatchups, 
+                          matchType, wins, winType, incr) => {
     await ddbClient.send(
         new UpdateCommand({
             TableName: tableName,
             Key: {
                 "id": parseInt(id)
             },
-            UpdateExpression: "set matchups = :x, #score = :y, #emotion_matchups = :z",
+            UpdateExpression: "set #wins = :x, #emotion_matchups = :y",
             ExpressionAttributeNames: {
-                "#score": scoreType,
+                "#wins": winType,
                 "#emotion_matchups": matchType
             },
             ExpressionAttributeValues: {
-                ":x": matchups + 1,
-                ":y": score + incr,
-                ":z": emotionMatchups + 1
+                ":x": wins + incr,
+                ":y": emotionMatchups + 1
+            },
+            ReturnValues: "ALL_NEW",
+        })
+    );
+}
+
+const updateSkipData = async (id, emotionMatchups, 
+                        matchType, skips, skipType) => {
+    await ddbClient.send(
+        new UpdateCommand({
+            TableName: tableName,
+            Key: {
+                "id": parseInt(id)
+            },
+            UpdateExpression: "set #skips = :x, #emotion_matchups = :y",
+            ExpressionAttributeNames: {
+                "#skips": skipType,
+                "#emotion_matchups": matchType
+            },
+            ExpressionAttributeValues: {
+                ":x": skips + 1,
+                ":y": emotionMatchups + 1
             },
             ReturnValues: "ALL_NEW",
         })

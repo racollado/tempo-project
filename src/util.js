@@ -1,4 +1,4 @@
-const itemCount = 447;
+const itemCount = 100;
 
 export const generateUniqueRandomInt = (id1) => {
     var rand = 0;

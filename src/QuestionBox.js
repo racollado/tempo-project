@@ -46,7 +46,7 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
         if (emotion === emotions.length - 1) {
             const temp = id1;
             setId1(id2);
-            setId2(generateUniqueRandomInt(temp))
+            setId2(generateUniqueRandomInt(temp, id2))
             setPlayer(player - 1)
             setBounce(true)
             await sleep(500)

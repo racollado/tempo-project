@@ -3,9 +3,16 @@ const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
+],
   theme: {
+    safelist: [
+      'animate-[fade-in_1s_ease-in-out]', 
+      'animate-[fade-in-down_1s_ease-in-out]',
+      'animate-[slide-right_1s_ease-in-out]'
+    ],
     screens: {
       sm: '480px',
       md: '768px',
@@ -29,5 +36,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require("tw-elements/dist/plugin")],
 }

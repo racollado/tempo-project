@@ -1,7 +1,7 @@
 import { updateScores } from './dynamodb.js';
-import { generateUniqueRandomInt } from './util.js';
+import { generateUniqueRandomInt, sleep } from './util.js';
 
-export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setId2}) {
+export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setId2, setBounce}) {
     
     // **********************************************************************
     // CONSTANTS
@@ -17,38 +17,41 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     async function song1win() {
         await updateScores(id1, emotions[emotion], 1);
         await updateScores(id2, emotions[emotion], 0);
-        updateQuestion();
+        await updateQuestion();
     }
 
     async function song2win() {
         await updateScores(id1, emotions[emotion], 0);
         await updateScores(id2, emotions[emotion], 1);
-        updateQuestion();
+        await updateQuestion();
     }
 
     async function neither() {
         await updateScores(id1, emotions[emotion], 0);
         await updateScores(id2, emotions[emotion], 0);
-        updateQuestion();
+        await updateQuestion();
     }
 
     async function equal() {
         await updateScores(id1, emotions[emotion], 0.5);
         await updateScores(id2, emotions[emotion], 0.5);
-        updateQuestion();
+        await updateQuestion();
     }
 
     // **********************************************************************
     // QUESTION CYCLER
     // **********************************************************************
 
-    function updateQuestion() {
+    async function updateQuestion() {
+        setEmotion((emotion + 1) % emotions.length)
         if (emotion === emotions.length - 1) {
             const temp = id1;
             setId1(id2);
             setId2(generateUniqueRandomInt(temp))
+            setBounce('animate-bounce')
+            await sleep(500)
+            setBounce('')
         }
-        setEmotion((emotion + 1) % emotions.length)
     }
 
     // **********************************************************************
@@ -58,7 +61,7 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     return (
         <div id="question-box" className="md:w-[35rem] mx-auto bg-offblack text-white p-6 text-center rounded-xl mb-3">
             <p className="text-4xl">
-                Which song is more <span className={`font-bold ${colors[emotion]}`}>
+                Which song is more <span className={`transition-colors duration-700 font-bold ${colors[emotion]}`}>
                     {`${emotions[emotion]}?`}
                 </span>
             </p>

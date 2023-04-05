@@ -7,3 +7,5 @@ export const generateUniqueRandomInt = (id1) => {
     } while (rand === id1)
     return rand;
   }
+
+export const sleep = ms => new Promise(r => setTimeout(r, ms));

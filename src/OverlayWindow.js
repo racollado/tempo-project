@@ -1,4 +1,4 @@
-export default function OverlayWindow({windowInfo, setWindowOpen, setCookie}) {
+export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, setCookie, accepted, setAccepted}) {
     
     // **********************************************************************
     // WINDOW BUTTON FUNCTIONS
@@ -6,6 +6,7 @@ export default function OverlayWindow({windowInfo, setWindowOpen, setCookie}) {
 
     const accept = () => {
         setCookie('accepted', true);
+        setAccepted(true);
         setWindowOpen(false);
     }
 
@@ -79,7 +80,7 @@ export default function OverlayWindow({windowInfo, setWindowOpen, setCookie}) {
     }
 
     return ( 
-        <div className="max-w-[calc(100%-1.5rem)] max-h-[79vh] mb-11 left-0 right-0 m-auto absolute bg-white border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[55vh]">
+        <div className={`${windowOpen ? 'opacity-100' : 'invisible opacity-0'} max-w-[calc(100%-1.5rem)] max-h-[79vh] mb-11 left-0 right-0 m-auto absolute bg-[#ffe9cc] border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[55vh] transition-all`}>
             {innerContent}
         </div> 
     );

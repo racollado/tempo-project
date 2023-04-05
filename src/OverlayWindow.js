@@ -80,7 +80,7 @@ export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, se
     }
 
     return ( 
-        <div className={`${windowOpen ? 'opacity-100' : 'invisible opacity-0'} max-w-[calc(100%-1.5rem)] max-h-[79vh] mb-11 left-0 right-0 m-auto absolute bg-[#ffe9cc] border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[55vh] transition-all`}>
+        <div className={`${windowOpen ? 'opacity-100' : 'invisible opacity-0'} max-w-[calc(100%-1.5rem)] max-h-[79vh] mb-11 left-0 right-0 m-auto absolute bg-[#ffe0b7] border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[55vh] transition-all`}>
             {innerContent}
         </div> 
     );

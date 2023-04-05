@@ -14,8 +14,8 @@ function App() {
 
   const [emotion, setEmotion] = useState(0);
   const [player, setPlayer] = useState(0);
-  const [id1, setId1] = useState(generateUniqueRandomInt(0));
-  const [id2, setId2] = useState(generateUniqueRandomInt(id1));
+  const [id1, setId1] = useState(generateUniqueRandomInt(0, 0));
+  const [id2, setId2] = useState(generateUniqueRandomInt(id1, 0));
   const [cookies, setCookie] = useCookies([]);
   const [accepted, setAccepted] = useState(cookies.accepted);
   const [windowOpen, setWindowOpen] = useState(!cookies.accepted);

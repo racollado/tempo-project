@@ -56,25 +56,25 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     // **********************************************************************
 
     return (
-        <div id="question-box" class="w-[35rem] mx-auto bg-offblack text-white p-6 text-center rounded-xl">
-            <p class="text-4xl">
+        <div id="question-box" className="md:w-[35rem] mx-auto bg-offblack text-white p-6 text-center rounded-xl mb-3">
+            <p className="text-4xl">
                 Which song is more <span className={`font-bold ${colors[emotion]}`}>
                     {`${emotions[emotion]}?`}
                 </span>
             </p>
             <br/>
-            <button class="bg-orange w-48 m-3 px-6 py-3 rounded text-offblack text-xl font-bold border-black border-2 transition-colors hover:bg-[#ffb85b]" onClick={song1win}>
+            <button className="bg-orange w-48 m-3 px-6 py-3 rounded text-offblack text-xl font-bold border-black border-2 transition-colors hover:bg-[#ffb85b]" onClick={song1win}>
                 {`Song ${id1}`}
             </button>
             <br/>
-            <button class="bg-white w-32 m-3 px-6 py-3 rounded text-offblack text-xl border-black border-2 transition-colors hover:bg-gray-300" onClick={neither}>
+            <button className="bg-white w-32 m-3 px-6 py-3 rounded text-offblack text-xl border-black border-2 transition-colors hover:bg-gray-300" onClick={neither}>
                 Neither
             </button>
-            <button class="bg-white w-32 m-3 px-6 py-3 rounded text-offblack text-xl border-black border-2 transition-colors hover:bg-gray-300" onClick={equal}>
+            <button className="bg-white w-32 m-3 px-6 py-3 rounded text-offblack text-xl border-black border-2 transition-colors hover:bg-gray-300" onClick={equal}>
                 Equal
             </button>
             <br/>
-	        <button class="bg-blue-700 w-48 m-3 px-6 py-3 rounded text-xl border-black border-2 font-bold transition-colors hover:bg-blue-500" onClick={song2win}> 
+	        <button className="bg-blue-700 w-48 m-3 px-6 py-3 rounded text-xl border-black border-2 font-bold transition-colors hover:bg-blue-500" onClick={song2win}> 
                 {`Song ${id2}`}
             </button>
         </div>

@@ -1,34 +1,10 @@
-import { DynamoDBClient, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, GetCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { DescribeTableCommand } from "@aws-sdk/client-dynamodb";
+import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { ddbClient, tableName } from "./client.js";
+import { getData } from "./get.js"
 
 // **********************************************************************
-// SETTING UP DB CLIENT
-// **********************************************************************
-
-const ddbClient = new DynamoDBClient({ 
-    region: "us-east-1",
-    credentials: {
-        accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.REACT_APP_SECRET_ACCESS_KEY
-    }});
-
-const marshallOptions = {
-    convertEmptyValues: false, 
-    removeUndefinedValues: true,
-    convertClassInstanceToMap: false,   
-};
-  
-const unmarshallOptions = {
-    wrapNumbers: false,
-};
-
-const ddbDocClient = DynamoDBDocumentClient.from(
-                    ddbClient, {marshallOptions, unmarshallOptions});
-
-const tableName = 'tempoprojectsongs'
-
-// **********************************************************************
-// MAIN FUNCTIONS
+// UPDATE WINS
 // **********************************************************************
 
 export const updateWins = async (id, emotion, incr) => {
@@ -43,6 +19,10 @@ export const updateWins = async (id, emotion, incr) => {
 
     await updateWinData(id, emotionMatchups, matchType, wins, winType, incr);
 }
+
+// **********************************************************************
+// UPDATE SKIPS
+// **********************************************************************
 
 export const updateSkips = async (id1, id2, emotion) => {
 
@@ -59,7 +39,6 @@ export const updateSkips = async (id1, id2, emotion) => {
 
     await updateSkipData(id1, emotionMatchups1, matchType, skips1, skipType);
     await updateSkipData(id2, emotionMatchups2, matchType, skips2, skipType);
-
 }
 
 export const getCount = async () => {
@@ -71,24 +50,7 @@ export const getCount = async () => {
 }
 
 // **********************************************************************
-// helper function (get)
-// **********************************************************************
-
-const getData = async (id) => {
-    const { Item } = await ddbDocClient.send(
-        new GetCommand({
-            TableName: tableName,
-            Key: {
-            id
-            },
-            ConsistentRead: true,
-        })
-    );
-    return Item;
-};
-
-// **********************************************************************
-// helper functions (updates)
+// UPDATE HELPER FUNCTIONS
 // **********************************************************************
 
 const updateWinData = async (id, emotionMatchups, 

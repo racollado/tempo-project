@@ -33,7 +33,11 @@ module.exports = {
       offblack: "#222222",
       orange: "#FF8A00"
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        'bottomblur': 'inset 0 -50px 40px -50px gray'
+      }
+    },
   },
   plugins: [],
 }

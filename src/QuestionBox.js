@@ -1,7 +1,7 @@
-import { updateWins, updateSkips } from './dynamodb.js';
+import { updateWins, updateSkips } from './db/update.js';
 import { generateUniqueRandomInt, sleep } from './util.js';
 
-export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setId2, setBounce, player, setPlayer}) {
+export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setId2, setBounce, player, setPlayer, accepted, setWindowInfo, windowOpen, setWindowOpen, windowRef, setScrollPosition, numUserResponses, setNumUserResponses, setCookie}) {
     
     // **********************************************************************
     // CONSTANTS
@@ -23,25 +23,29 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
     async function song1win() {
         await updateWins(id1, emotions[emotion], 1);
         await updateWins(id2, emotions[emotion], 0);
-        await updateQuestion();
+        await updateQuestion(false);
     }
 
     async function song2win() {
         await updateWins(id1, emotions[emotion], 0);
         await updateWins(id2, emotions[emotion], 1);
-        await updateQuestion();
+        await updateQuestion(false);
     }
 
     async function skip() {
         await updateSkips(id1, id2, emotions[emotion]);
-        await updateQuestion();
+        await updateQuestion(true);
     }
 
     // **********************************************************************
     // QUESTION CYCLER
     // **********************************************************************
 
-    async function updateQuestion() {
+    async function updateQuestion(skipped) {
+        if (!skipped) {
+            setNumUserResponses(numUserResponses + 1);
+            setCookie('numUserResponses', numUserResponses + 1)
+        }
         setEmotion((emotion + 1) % emotions.length)
         if (emotion === emotions.length - 1) {
             const temp = id1;
@@ -76,6 +80,18 @@ export default function QuestionBox({emotion, setEmotion, id1, id2, setId1, setI
             <br/>
             <button className="bg-white w-20 m-3 p-1 rounded text-[#4f4f4f] text-xl border-black border-2 transition-colors hover:bg-gray-300 font-light" onClick={skip}>
                 Skip
+            </button>
+            <br/>
+            <button onClick={() => {   
+                    if (accepted && !windowOpen) {
+                        setWindowInfo('instructions'); 
+                        setWindowOpen(true);
+                        setScrollPosition(windowRef);
+                    }}
+                } className="transition-colors hover:text-orange">
+                    <span>
+                        Help ⓘ
+                    </span>
             </button>
         </div>
     );

@@ -1,4 +1,4 @@
-export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, setCookie, accepted, setAccepted}) {
+export default function OverlayWindow({windowRef, windowOpen, windowInfo, setWindowOpen, setCookie, setAccepted}) {
     
     // **********************************************************************
     // WINDOW BUTTON FUNCTIONS
@@ -23,7 +23,9 @@ export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, se
     if (windowInfo === 'consent' || windowInfo === 'instructions') {
         innerContent = (
             <>
-                <h1 className="font-bold text-3xl">Welcome to TEMPO!</h1>
+                <h1 className="font-bold text-3xl">
+                {windowInfo === 'consent' ? 'Welcome to TEMPO!' : 'TEMPO Instructions'}
+                </h1>
                 <br/>
                 <p>
                     You will listen to two 30-second song clips. Then, you will be asked to choose which of the two songs conveys a given emotion most closely. 
@@ -37,7 +39,8 @@ export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, se
                 </p>
                 <br/>
                 <p>
-                    After you answer for each of the three emotions, one song will stay the same, and the other will shuffle to a new song. TEMPO continuously generates song matchups, which means you may stop whenever you like.
+                    After you answer for each of the three emotions, one song will stay the same, and the other will shuffle to a new song. 
+                    <b> TEMPO continuously generates song matchups, which means you may stop whenever you like.</b>
                 </p>
                 <br/>
                 <p>
@@ -80,7 +83,9 @@ export default function OverlayWindow({windowOpen, windowInfo, setWindowOpen, se
     }
 
     return ( 
-        <div className={`${windowOpen ? 'opacity-100' : 'invisible opacity-0'} max-w-[calc(100%-1.5rem)] max-h-[79vh] mb-11 left-0 right-0 m-auto absolute bg-[#ffe0b7] border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[55vh] transition-all`}>
+        <div className={`${windowOpen ? 'opacity-100' : 'invisible opacity-0'} max-w-[90%]
+        md:min-w-[40rem] md:w-[50rem] md:max-w-[calc(100%-5rem)]  max-h-[78vh] mb-11 left-0 right-0 m-auto absolute bg-[#ffe0b7] border-8 border-black rounded z-10 overflow-y-scroll text-center p-6 text-2xl min-h-[60vh] transition-all scroll`}
+        ref={windowRef}>
             {innerContent}
         </div> 
     );

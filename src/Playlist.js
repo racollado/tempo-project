@@ -70,7 +70,9 @@ export default function Playlist({sortedIds, playlistIndex, setPlaylistIndex}) {
                 </div>
                 <div id="song-info" className="max-w-[35rem] mx-auto bg-offblack text-white p-6 pr-4 text-center rounded-xl mb-3">
                     <div className="flex">
-                        <img className="h-32 w-32 md:h-64 md:w-64 mr-2 my-auto" src={song['album_cover']} alt="album cover"/>
+                        <img className="h-32 w-32 md:h-64 md:w-64 mr-2 my-auto" 
+                            src={`https://tempoprojectsongs.s3.amazonaws.com/covers/cover${song['id']}.jpg`}  
+                            alt="album cover"/>
                         <div id="song-info" className="shadow-bottomblur text-center p-4 pt-2 pr-0 w-auto max-h-64 overflow-y-scroll">
                             <p className="text-lg font-bold">{`${song['title']} by ${song['artist']}`}</p>
                             <br/>
@@ -90,7 +92,7 @@ export default function Playlist({sortedIds, playlistIndex, setPlaylistIndex}) {
                         <audio 
                             id="audio-playlist" 
                             className="sm:mt-[6px] md:m-0 mx-auto"
-                            src={song['song']}
+                            src={`https://tempoprojectsongs.s3.amazonaws.com/songs/song${song['id']}.mp3`}  
                             controls autoPlay controlsList="nodownload noplaybackrate" 
                             type="audio/mpeg"
                             onEnded={handleForward}

@@ -32,7 +32,7 @@ export async function generateNormalizedScores() {
         const cm = item['chill_matchups']
 
         // happy
-        let hScore = (hw * 100 / hm) * Math.pow(0.95, hs)
+        let hScore = (hw * 100 / (hm + 1)) * Math.pow(0.95, hs)
         if (hScore > maxH) {
             maxH = hScore
         }
@@ -41,7 +41,7 @@ export async function generateNormalizedScores() {
         }
 
         // angry
-        let aScore = (aw * 100 / am) * Math.pow(0.95, as)
+        let aScore = (aw * 100 / (am + 1)) * Math.pow(0.95, as)
         if (aScore > maxA) {
             maxA = aScore
         }
@@ -50,7 +50,7 @@ export async function generateNormalizedScores() {
         }
         
         // chill
-        let cScore = (cw * 100 / cm) * Math.pow(0.95, cs)
+        let cScore = (cw * 100 / (cm + 1)) * Math.pow(0.95, cs)
         if (cScore > maxC) {
             maxC = cScore
         }
@@ -88,6 +88,9 @@ export async function getTotalResponses() {
 }
 
 export function distance(params, scoreSet) {
+    if (scoreSet[1] + scoreSet[2] + scoreSet[3] === 0) {
+        return Number.MAX_SAFE_INTEGER
+    }
     const hSquared = Math.pow((params[0] - scoreSet[1]), 2)
     const aSquared = Math.pow((params[1] - scoreSet[2]), 2)
     const cSquared = Math.pow((params[2] - scoreSet[3]), 2)

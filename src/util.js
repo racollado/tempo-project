@@ -1,5 +1,5 @@
 // global const for how many songs from the database are in use
-export const itemCount = 200;
+export const itemCount = 100;
 
 // for use in generating matchups without immediate collision
 export const generateUniqueRandomInt = (id1, id2) => {

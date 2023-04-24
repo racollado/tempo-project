@@ -64,7 +64,7 @@ export default function OverlayWindow({windowRef, windowOpen, windowInfo, setWin
                 <h1 className="font-bold text-3xl">About TEMPO</h1>
                 <br/>
                 <p>
-                    TEMPO stands for The Electronic Music Perception Organizer. The goal of this project is to produce a collection of crowd-sourced data reflecting the emotional perception of various electronic music pieces. This data will be turned into an interactive data sonification that will live on this website. Stay tuned!
+                    TEMPO stands for The Electronic Music Perception Organizer. The goals of this project are to produce a collection of crowd-sourced data reflecting the emotional perception of various electronic music pieces and create an interactive data sonification for the collected data. 
                 </p>
                 <br/>
                 <p>
@@ -72,7 +72,7 @@ export default function OverlayWindow({windowRef, windowOpen, windowInfo, setWin
                 </p> 
                 <br/>
                 <p>
-                    If you have any questions or comments, you can reach Rafael through email: collado@princeton.edu
+                    If you have any questions or comments, you can fill out <a href="https://forms.gle/97aTFGwcz9EamNaS8" className="text-blue-500 underline">this form</a> or reach Rafael through email: collado@princeton.edu 
                 </p>
                 <br/>
                 <button onClick={close} className="bg-orange w-48 m-3 px-6 py-3 rounded text-offblack text-xl font-bold border-black border-2 transition-colors hover:bg-[#ffb85b]">

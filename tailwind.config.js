@@ -24,8 +24,8 @@ module.exports = {
       indigo: colors.indigo,
       yellow: colors.yellow,
       blue: colors.blue,
-      orange: "#FF8A00",
-      offblack: "#222222"
+      offblack: "#222222",
+      orange: "#FF8A00"
     },
     extend: {},
   },

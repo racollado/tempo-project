@@ -10,3 +10,11 @@ body {
     background-size: 60px 60px;
     width: 100%;
   }
+
+#song-info::-webkit-scrollbar{
+   display: none;
+}
+
+#song-info::-webkit-scrollbar-track{
+   display: none;
+}

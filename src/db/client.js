@@ -25,4 +25,4 @@ export const ddbClient = new DynamoDBClient({
 export const ddbDocClient = DynamoDBDocumentClient.from(
                     ddbClient, {marshallOptions, unmarshallOptions});
 
-export const tableName = 'tempoprojectsongs'
+export const tableName = 'tempoprojectsongs';
